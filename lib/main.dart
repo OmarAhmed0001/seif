@@ -109,14 +109,13 @@ class _MyAppState extends State<MyApp> {
   void _calculateHeight() {
     print('Max Pressure : ${maxPress.toString()}');
     print('Min Pressure: ${minPress.toString()}');
-    final double maxheight =
-        ((maxPress * 13600) / 1.27) / 1000; // assume 1hPa = 1m height
-    final double minheight =
-        ((minPress * 13600) / 1.27) / 1000; // assume 1hPa = 1m height
-    double height = maxheight - minheight;
-    if (height < 0.0) {
-      height = height * -1;
+
+    double lastPress = (maxPress - minPress) * 100; // assume 1hPa = 1m height
+
+    if (lastPress < 0.0) {
+      lastPress = lastPress * -1;
     }
+    double height = lastPress / (9.8 * 1.147);
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
