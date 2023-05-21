@@ -110,12 +110,13 @@ class _MyAppState extends State<MyApp> {
     print('Max Pressure : ${maxPress.toString()}');
     print('Min Pressure: ${minPress.toString()}');
 
-    double lastPress = (maxPress - minPress) * 100; // assume 1hPa = 1m height
+    double lastPress = (maxPress - minPress) * 100; // to convert from hPa to Pa
 
     if (lastPress < 0.0) {
-      lastPress = lastPress * -1;
+      lastPress = lastPress * -1; // to convert to positive value
     }
-    double height = lastPress / (9.8 * 1.147);
+    double height = lastPress /
+        (9.8 * 1.147); // 1.147 is the density of air  // 9.8 is the gravity
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
